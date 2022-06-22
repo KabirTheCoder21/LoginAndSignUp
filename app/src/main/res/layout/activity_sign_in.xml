@@ -86,7 +86,7 @@
         android:id="@+id/forgot_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="forget password?"
+        android:text="forgot password?"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -31,10 +31,16 @@ binding.forgotButton.setOnClickListener {
     val view = layoutInflater.inflate(R.layout.dialog_forgot_password,null)
     val username =view.findViewById<EditText>(R.id.et_username)
     builder.setView(view)
-    builder.setPositiveButton("Reset", DialogInterface.OnClickListener { _,_  ->
+    builder.setPositiveButton("Reset") { _, _ ->
         forgotPassword(username)
-    })
-    builder.setNegativeButton("close", DialogInterface.OnClickListener { _,_  ->  })
+    }
+    builder.setNegativeButton("close") { _, _ ->
+        Toast.makeText(
+            this,
+            "close button clicked",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
     builder.show()
 }
         binding.button.setOnClickListener {
@@ -58,9 +64,11 @@ binding.forgotButton.setOnClickListener {
 
     private fun forgotPassword(username:EditText) {
        if(username.text.toString().isEmpty()){
+           Toast.makeText(this, "Field is Empty", Toast.LENGTH_SHORT).show()
            return
        }
         if(!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()) {
+            Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show()
             return
         }
         firebaseAuth.sendPasswordResetEmail(username.text.toString())
@@ -75,4 +83,8 @@ if(it.isSuccessful)
         }
     }
 
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
+    }
 }
